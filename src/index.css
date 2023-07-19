@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.toastOut {
+    animation: normal 3s toastOut
+}
+
+.toastIn {
+    animation: normal 0.3s toastIn
+}
+
+@keyframes toastOut {
+    from {
+        transform: translateX(0%);
+    }
+
+    10% {
+        transform: translateX(0%);
+    }
+
+    50% {
+        transform: translateX(-10%);
+    }
+
+    70% {
+        transform: translateX(70%);
+    }
+
+    to {
+        transform: translateX(150%);
+    }
+}
+
+@keyframes toastIn {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0%);
+    }
+}

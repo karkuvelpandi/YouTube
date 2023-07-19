@@ -4,8 +4,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import MicIcon from "@mui/icons-material/Mic";
 import VideoCallOutlinedIcon from "@mui/icons-material/VideoCallOutlined";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
-
-import Logo from "../Assets/images/logo/youtube_light.svg";
+// import Img from "../assets/images/logo/youtube_light.svg"
+import React from "react";
 
 const Header = () => {
   return (
@@ -16,7 +16,7 @@ const Header = () => {
             <MenuIcon className="yt-icon" fontSize="medium" />
           </IconButton>
 
-          <img className="flex ml-2 logo" src={Logo} alt="" />
+          {/* <img className="flex ml-2 logo" src={Img} alt="" /> */}
         </div>
         <div className="flex-1 text-center center">
           <div className="search-flex">
