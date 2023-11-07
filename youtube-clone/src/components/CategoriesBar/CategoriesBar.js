@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import "./_categoriesBar.scss";
+import { useDispatch } from "react-redux";
+import { HOME_VIDEOS_REQUEST } from "../../redux/actionType";
+import { getVideosByCategory } from "../../redux/actions/videos.action";
 const keywords = [
   "All",
   "React js",
@@ -20,10 +23,12 @@ const keywords = [
   "Quantum computing",
 ];
 const CategoriesBar = () => {
+  const dispatch = useDispatch();
   const [activeElement, setActiveElement] = useState("All");
 
   const handleClick = (value) => {
     setActiveElement(value);
+    dispatch(getVideosByCategory(value));
   };
 
   return (
