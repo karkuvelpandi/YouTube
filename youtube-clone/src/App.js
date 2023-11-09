@@ -13,6 +13,7 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import HomeScreen from "./screen/HomeScreen/HomeScreen";
 import LoginScreen from "./screen/LoginScreen/LoginScreen";
 import { useSelector } from "react-redux";
+import WatchScreen from "./screen/watchScreen/WatchScreen";
 
 const Layout = ({ children }) => {
   const [toggleSidebar, setToggleSidebar] = useState(false);
@@ -62,6 +63,14 @@ const App = () => {
         element={
           <Layout>
             <h1>Search Results</h1>
+          </Layout>
+        }
+      />
+      <Route
+        path="/watch/:id"
+        element={
+          <Layout>
+            <WatchScreen />
           </Layout>
         }
       />
