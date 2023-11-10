@@ -20,6 +20,9 @@
       border-radius: 0;
       text-transform: uppercase;
       letter-spacing: 0.5px;
+      &.btn-gray {
+        background-color: gray;
+      }
       &:hover {
         color: #fff;
       }
@@ -38,6 +41,7 @@
       margin: 1rem 0;
       color: #fff;
       font-weight: 500;
+      cursor: pointer;
     }
   }
 }

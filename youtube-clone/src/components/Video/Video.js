@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import numeral from "numeral";
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -7,6 +8,7 @@ import request from "../../api";
 import "./_video.scss";
 
 const Video = ({ video }) => {
+  const navigate = useNavigate();
   const {
     id,
     snippet: {
@@ -58,8 +60,12 @@ const Video = ({ video }) => {
     get_channel_icon();
   }, [channelId]);
 
+  const handleVideoClick = () => {
+    navigate(`/watch/${_videoId}`);
+  };
+
   return (
-    <div className="video">
+    <div className="video" onClick={handleVideoClick}>
       <div className="video__top">
         {/* <img src={medium.url} alt="" /> */}
         <LazyLoadImage src={medium.url} effect="blur" />
