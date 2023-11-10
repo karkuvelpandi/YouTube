@@ -31,3 +31,8 @@ export const COMMENT_LIST_FAIL = "COMMENT_LIST_FAIL";
 // Add comment action type
 export const ADD_COMMENT_SUCCESS = "ADD_COMMENT_SUCCESS";
 export const ADD_COMMENT_FAIL = "ADD_COMMENT_FAIL";
+
+// Related videos action types
+export const RELATED_VIDEO_REQUEST = "RELATED_VIDEO_REQUEST";
+export const RELATED_VIDEO_SUCCESS = "RELATED_VIDEO_SUCCESS";
+export const RELATED_VIDEO_FAIL = "RELATED_VIDEO_FAIL";
