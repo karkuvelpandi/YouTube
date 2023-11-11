@@ -4,10 +4,12 @@ import { FaBars } from "react-icons/fa";
 import { AiOutlineSearch } from "react-icons/ai";
 import { MdNotifications, MdApps } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Header = ({ toggleSidebarHandler }) => {
   const navigate = useNavigate();
   const [keyword, setKeyword] = useState("");
+  const user = useSelector((state) => state.auth?.user);
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -39,10 +41,7 @@ const Header = ({ toggleSidebarHandler }) => {
       <div className="header__icons">
         <MdNotifications size={28} />
         <MdApps size={28} />
-        <img
-          src="https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745"
-          alt="avatar"
-        />
+        <img src={user?.photoURL} alt="avatar" />
       </div>
     </div>
   );

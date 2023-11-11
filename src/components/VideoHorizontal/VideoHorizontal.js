@@ -25,6 +25,7 @@ const VideoHorizontal = ({ video, searchScreen, subscriptionsScreen }) => {
       resourceId,
     },
   } = video;
+  console.log(video);
   const isVideo = !(id.kind === "youtube#channel" || subscriptionsScreen);
   const _videoId = searchScreen ? id?.videoId : id?.videoId || id;
   const _channelId = subscriptionsScreen
@@ -44,10 +45,10 @@ const VideoHorizontal = ({ video, searchScreen, subscriptionsScreen }) => {
           id: vId,
         },
       });
-      setDuration(items[0].contentDetails.duration);
-      setViews(items[0].statistics.viewCount);
+      setDuration(items[0]?.contentDetails.duration);
+      setViews(items[0]?.statistics.viewCount);
     };
-    if (_videoId && isVideo) get_video_details(_videoId);
+    if (_videoId || isVideo) get_video_details(_videoId);
   }, [_videoId, isVideo]);
   // Only for getting channel icon
   useEffect(() => {

@@ -11,6 +11,7 @@ const Comments = ({ videoId, totalComments }) => {
   const [text, setText] = useState();
   const dispatch = useDispatch();
   const comments = useSelector((state) => state.commentList.comments);
+  const user = useSelector((state) => state.auth?.user);
 
   const _comments = comments?.map(
     (comment) => comment.snippet.topLevelComment.snippet
@@ -30,10 +31,7 @@ const Comments = ({ videoId, totalComments }) => {
     <div className="comments">
       <p>{totalComments} comments</p>
       <div className="comments__form d-flex w-100 my-2">
-        <img
-          src="https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745"
-          alt="avatar"
-        />
+        <img src={user.photoURL} alt="avatar" />
         <form onSubmit={handleComment} className="d-flex flex-grow-1">
           <input
             value={text}

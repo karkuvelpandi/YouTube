@@ -56,8 +56,8 @@ export const ChannelScreen = () => {
                   <Video video={video} channelScreen />
                 </Col>
               ))
-            : [...Array(15)].map(() => (
-                <Col md={4} lg={3}>
+            : [...Array(15)].map((a, index) => (
+                <Col md={4} lg={3} key={index}>
                   <SkeletonTheme baseColor="#343a40" highlightColor="#3c4147">
                     <Skeleton width="100%" height="140px" />
                   </SkeletonTheme>
