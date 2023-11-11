@@ -1,4 +1,7 @@
 import {
+  CHANNEL_VIDEOS_FAIL,
+  CHANNEL_VIDEOS_REQUEST,
+  CHANNEL_VIDEOS_SUCCESS,
   HOME_VIDEOS_FAIL,
   HOME_VIDEOS_REQUEST,
   HOME_VIDEOS_SUCCESS,
@@ -185,6 +188,46 @@ export const subscribedChannelsReducer = (
         loading: false,
       };
     case SUBSCRIBED_CHANNELS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const channelVideosReducer = (
+  state = {
+    loading: true,
+    channelVideos: [],
+    // nextPageToken: null,
+    // can //TODO:Complete the pagination
+    // context: null,
+  },
+  action
+) => {
+  const { payload, type } = action;
+  switch (type) {
+    case CHANNEL_VIDEOS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case CHANNEL_VIDEOS_SUCCESS:
+      return {
+        ...state,
+        channelVideos: payload,
+        // can //TODO:Pagination
+        // searchResults:
+        //   state.searchQuery === payload.searchQuery
+        //     ? [...state.searchResults, ...payload.searchResults]
+        //     : payload.searchResults,
+        // nextPageToken: payload.nextPageToken,
+        loading: false,
+      };
+    case CHANNEL_VIDEOS_FAIL:
       return {
         ...state,
         loading: false,

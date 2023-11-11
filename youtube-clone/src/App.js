@@ -16,6 +16,7 @@ import { useSelector } from "react-redux";
 import WatchScreen from "./screen/watchScreen/WatchScreen";
 import SearchScreen from "./screen/SearchScreen";
 import { SubscriptionsScreen } from "./screen/SubscriptionsScreen/SubscriptionsScreen";
+import { ChannelScreen } from "./screen/ChannelScreen/ChannelScreen";
 
 const Layout = ({ children }) => {
   const [toggleSidebar, setToggleSidebar] = useState(false);
@@ -88,7 +89,7 @@ const App = () => {
         path="/channel/:channelId"
         element={
           <Layout>
-            <h1>Channel screen</h1>
+            <ChannelScreen />
           </Layout>
         }
       />

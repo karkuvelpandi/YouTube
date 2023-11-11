@@ -7,7 +7,7 @@ import { AiFillEye } from "react-icons/ai";
 import request from "../../api";
 import "./_video.scss";
 
-const Video = ({ video }) => {
+const Video = ({ video, channelScreen }) => {
   const navigate = useNavigate();
   const {
     id,
@@ -18,6 +18,7 @@ const Video = ({ video }) => {
       publishedAt,
       thumbnails: { medium },
     },
+    contentDetails,
   } = video;
   const [views, setViews] = useState(null);
   const [duration, setDuration] = useState(null);
@@ -26,7 +27,7 @@ const Video = ({ video }) => {
   const seconds = moment.duration(duration).asSeconds();
   const _duration = moment.utc(seconds * 1000).format("mm:ss");
 
-  const _videoId = id?.videoId || id;
+  const _videoId = id?.videoId || contentDetails.videoId || id;
 
   useEffect(() => {
     const get_video_details = async () => {
@@ -80,11 +81,13 @@ const Video = ({ video }) => {
         </span>
         <span> &nbsp;{moment(publishedAt).fromNow()}</span>
       </div>
-      <div className="video__channel">
-        {/* <img src={channelIcon?.url} alt="" /> */}
-        <LazyLoadImage src={channelIcon?.url} effect="blur" />
-        <p>{channelTitle}</p>
-      </div>
+
+      {!channelScreen && (
+        <div className="video__channel">
+          <LazyLoadImage src={channelIcon?.url} effect="blur" />
+          <p>{channelTitle}</p>
+        </div>
+      )}
     </div>
   );
 };
