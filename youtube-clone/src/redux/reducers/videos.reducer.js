@@ -11,6 +11,9 @@ import {
   SELECTED_VIDEO_FAIL,
   SELECTED_VIDEO_REQUEST,
   SELECTED_VIDEO_SUCCESS,
+  SUBSCRIBED_CHANNELS_FAIL,
+  SUBSCRIBED_CHANNELS_REQUEST,
+  SUBSCRIBED_CHANNELS_SUCCESS,
 } from "../actionType";
 
 const initialState = {
@@ -143,6 +146,45 @@ export const searchedVideoReducer = (
         loading: false,
       };
     case SEARCHED_VIDEO_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const subscribedChannelsReducer = (
+  state = {
+    loading: true,
+    channels: [],
+    nextPageToken: null,
+    // TODO:Complete the pagination
+    // context: null,
+  },
+  action
+) => {
+  const { payload, type } = action;
+  switch (type) {
+    case SUBSCRIBED_CHANNELS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case SUBSCRIBED_CHANNELS_SUCCESS:
+      return {
+        ...state,
+        channels: payload,
+        // searchResults:
+        //   state.searchQuery === payload.searchQuery
+        //     ? [...state.searchResults, ...payload.searchResults]
+        //     : payload.searchResults,
+        // nextPageToken: payload.nextPageToken,
+        loading: false,
+      };
+    case SUBSCRIBED_CHANNELS_FAIL:
       return {
         ...state,
         loading: false,

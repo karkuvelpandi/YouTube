@@ -12,6 +12,9 @@ import {
   SELECTED_VIDEO_FAIL,
   SELECTED_VIDEO_REQUEST,
   SELECTED_VIDEO_SUCCESS,
+  SUBSCRIBED_CHANNELS_FAIL,
+  SUBSCRIBED_CHANNELS_REQUEST,
+  SUBSCRIBED_CHANNELS_SUCCESS,
 } from "../actionType";
 
 export const getPopularVideos = () => async (dispatch, getState) => {
@@ -148,7 +151,8 @@ export const getVideosBySearch = (keyword) => async (dispatch, getState) => {
       params: {
         part: "snippet",
         maxResults: 20,
-        pageToken: getState().homeVideos.nextPageToken,
+        // TODO:Paginate
+        // nextPageToken: getState().searchedVideo.nextPageToken,
         q: keyword,
         type: "video,channel",
       },
@@ -167,6 +171,37 @@ export const getVideosBySearch = (keyword) => async (dispatch, getState) => {
     dispatch({
       type: SEARCHED_VIDEO_FAIL,
       payload: error.message,
+    });
+  }
+};
+
+export const getSubscribedChannels = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: SUBSCRIBED_CHANNELS_REQUEST,
+    });
+    const { data } = await request("/subscriptions", {
+      params: {
+        part: "snippet,contentDetails",
+        mine: true,
+        maxResults: 40,
+        // TODO:Paginate
+        // nextPageToken: getState().searchedVideo.nextPageToken,
+      },
+      headers: {
+        Authorization: `Bearer ${getState().auth.accessToken}`,
+      },
+    });
+
+    dispatch({
+      type: SUBSCRIBED_CHANNELS_SUCCESS,
+      payload: data.items,
+    });
+  } catch (error) {
+    console.log(error.response?.data);
+    dispatch({
+      type: SUBSCRIBED_CHANNELS_FAIL,
+      payload: error.response.data,
     });
   }
 };
