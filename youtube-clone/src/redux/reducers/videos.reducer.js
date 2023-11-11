@@ -5,6 +5,9 @@ import {
   RELATED_VIDEO_FAIL,
   RELATED_VIDEO_REQUEST,
   RELATED_VIDEO_SUCCESS,
+  SEARCHED_VIDEO_FAIL,
+  SEARCHED_VIDEO_REQUEST,
+  SEARCHED_VIDEO_SUCCESS,
   SELECTED_VIDEO_FAIL,
   SELECTED_VIDEO_REQUEST,
   SELECTED_VIDEO_SUCCESS,
@@ -101,6 +104,45 @@ export const relatedVideoReducer = (
         loading: false,
       };
     case RELATED_VIDEO_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const searchedVideoReducer = (
+  state = {
+    loading: true,
+    searchResults: [],
+    nextPageToken: null,
+    searchQuery: null,
+  },
+  action
+) => {
+  const { payload, type } = action;
+  switch (type) {
+    case SEARCHED_VIDEO_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case SEARCHED_VIDEO_SUCCESS:
+      return {
+        ...state,
+        // searchResults: payload.searchResults,
+        searchResults:
+          state.searchQuery === payload.searchQuery
+            ? [...state.searchResults, ...payload.searchResults]
+            : payload.searchResults,
+        nextPageToken: payload.nextPageToken,
+        searchQuery: payload.searchQuery,
+        loading: false,
+      };
+    case SEARCHED_VIDEO_FAIL:
       return {
         ...state,
         loading: false,

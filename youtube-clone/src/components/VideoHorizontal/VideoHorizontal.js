@@ -8,9 +8,11 @@ import { AiFillEye } from "react-icons/ai";
 import { Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-const VideoHorizontal = ({ video }) => {
+const VideoHorizontal = ({ video, searchScreen }) => {
   const navigate = useNavigate();
-  const [channelIcon, setChannelIcon] = useState();
+  const [views, setViews] = useState(null);
+  const [duration, setDuration] = useState(null);
+  const [channelIcon, setChannelIcon] = useState(null);
   const {
     id,
     snippet: {
@@ -21,10 +23,30 @@ const VideoHorizontal = ({ video }) => {
       publishedAt,
       thumbnails: { medium },
     },
-    contentDetails: { duration },
-    statistics: { viewCount },
+    // contentDetails: { duration },
+    // statistics: { viewCount },
   } = video;
+  const isVideo = id.kind === "youtube#video";
+  const _videoId = searchScreen ? id?.videoId : id?.videoId || id;
+  const _channelId = id?.channelId || channelId;
+  const thumbnailClassName =
+    id.kind === "youtube#channel" && "videoHorizontal__thumbnail-channel";
 
+  useEffect(() => {
+    const get_video_details = async (vId) => {
+      const {
+        data: { items },
+      } = await request("/videos", {
+        params: {
+          part: "contentDetails,statistics",
+          id: vId,
+        },
+      });
+      setDuration(items[0].contentDetails.duration);
+      setViews(items[0].statistics.viewCount);
+    };
+    _videoId && get_video_details(_videoId);
+  }, [_videoId]);
   // Only for getting channel icon
   useEffect(() => {
     const get_channel_icon = async () => {
@@ -33,48 +55,66 @@ const VideoHorizontal = ({ video }) => {
       } = await request("/channels", {
         params: {
           part: "snippet",
-          id: channelId,
+          id: _channelId,
         },
       });
+      console.log(items[0].snippet.thumbnails.default.url);
+      console.log(items[0].snippet.thumbnails);
       setChannelIcon(items[0].snippet.thumbnails.default);
     };
     get_channel_icon();
-  }, [channelId]);
+  }, [_channelId]);
 
   const seconds = moment.duration(duration).asSeconds();
   const _duration = moment.utc(seconds * 1000).format("mm:ss");
 
   const handleClick = () => {
-    // TODO:Handle Channel click
-    navigate(`watch/${id}`);
+    isVideo
+      ? navigate(`/watch/${_videoId}`)
+      : navigate(`/channel/${_channelId}`);
   };
 
   return (
-    <Row className="videoHorizontal m-1 py-2" onClick={handleClick}>
+    <Row
+      className="videoHorizontal m-1 py-2 align-items-center"
+      onClick={handleClick}
+    >
       {/* TODO: Refactor grid layout */}
-      <Col xs={6} md={6} className="videoHorizontal__left">
+      <Col xs={6} md={searchScreen ? 4 : 6} className="videoHorizontal__left">
         <LazyLoadImage
           src={medium.url}
           effect="blur"
-          className="videoHorizontal__thumbnail"
+          className={`videoHorizontal__thumbnail ${thumbnailClassName}`}
           wrapperClassName="videoHorizontal__thumbnail-wrapper"
         />
-        <span className="videoHorizontal__duration">{_duration}</span>
+        {isVideo && (
+          <span className="videoHorizontal__duration">{_duration}</span>
+        )}
       </Col>
-      <Col xs={6} md={6} className="videoHorizontal__right p-0">
+      <Col
+        xs={6}
+        md={searchScreen ? 8 : 6}
+        className="videoHorizontal__right p-0"
+      >
         <p className="videoHorizontal__title mb-1">{title}</p>
-        <div className="videoHorizontal__details">
-          <AiFillEye />
-          &nbsp;
-          {numeral(viewCount).format("0.a")} views • &nbsp;
-          {moment(publishedAt).fromNow()}
-        </div>
+
+        {isVideo && (
+          <div className="videoHorizontal__details">
+            <AiFillEye />
+            &nbsp;
+            {numeral(views).format("0.a")} views • &nbsp;
+            {moment(publishedAt).fromNow()}
+          </div>
+        )}
+
+        {isVideo && (
+          <p className="videoHorizontal__description">{description}</p>
+        )}
+
         <div className="videoHorizontal__channel d-flex align-items-center my-1">
           {/* TODO:Show in search screen */}
-          {/* <LazyLoadImage
-            src="https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745"
-            effect="blur"
-          /> */}
+
+          {isVideo && <LazyLoadImage src={channelIcon?.url} effect="blur" />}
           <p className="mb-0">{channelTitle}</p>
         </div>
       </Col>
