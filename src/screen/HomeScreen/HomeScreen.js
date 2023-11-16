@@ -28,7 +28,7 @@ const HomeScreen = () => {
     }
   };
   return (
-    <Container>
+    <Container style={{ position: "relative" }}>
       <CategoriesBar />
       <InfiniteScroll
         dataLength={videos.length}

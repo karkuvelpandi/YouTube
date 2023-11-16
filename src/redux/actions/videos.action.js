@@ -153,14 +153,13 @@ export const getVideosBySearch = (keyword) => async (dispatch, getState) => {
     dispatch({
       type: SEARCHED_VIDEO_REQUEST,
     });
-    const { data } = await request.get("/search", {
+    const { data } = await request("/search", {
       params: {
         part: "snippet",
         maxResults: 20,
-        // TODO:Paginate
-        // nextPageToken: getState().searchedVideo.nextPageToken,
         q: keyword,
         type: "video,channel",
+        pageToken: getState().searchedVideo.nextPageToken,
       },
     });
 

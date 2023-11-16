@@ -8,7 +8,12 @@ import { AiFillEye } from "react-icons/ai";
 import { Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-const VideoHorizontal = ({ video, searchScreen, subscriptionsScreen }) => {
+const VideoHorizontal = ({
+  video,
+  searchScreen,
+  subscriptionsScreen,
+  LikedVideosScreen,
+}) => {
   const navigate = useNavigate();
   const [views, setViews] = useState(null);
   const [duration, setDuration] = useState(null);
@@ -25,7 +30,6 @@ const VideoHorizontal = ({ video, searchScreen, subscriptionsScreen }) => {
       resourceId,
     },
   } = video;
-  console.log(video);
   const isVideo = !(id.kind === "youtube#channel" || subscriptionsScreen);
   const _videoId = searchScreen ? id?.videoId : id?.videoId || id;
   const _channelId = subscriptionsScreen
@@ -61,8 +65,6 @@ const VideoHorizontal = ({ video, searchScreen, subscriptionsScreen }) => {
           id: _channelId,
         },
       });
-      console.log(items[0].snippet.thumbnails.default.url);
-      console.log(items[0].snippet.thumbnails);
       setChannelIcon(items[0].snippet.thumbnails.default);
     };
     get_channel_icon();
@@ -85,7 +87,7 @@ const VideoHorizontal = ({ video, searchScreen, subscriptionsScreen }) => {
       {/* TODO: Refactor grid layout */}
       <Col
         xs={6}
-        md={searchScreen || subscriptionsScreen ? 4 : 6}
+        md={searchScreen || subscriptionsScreen || LikedVideosScreen ? 4 : 6}
         className="videoHorizontal__left"
       >
         <LazyLoadImage
@@ -100,7 +102,7 @@ const VideoHorizontal = ({ video, searchScreen, subscriptionsScreen }) => {
       </Col>
       <Col
         xs={6}
-        md={searchScreen || subscriptionsScreen ? 8 : 6}
+        md={searchScreen || subscriptionsScreen || LikedVideosScreen ? 8 : 6}
         className="videoHorizontal__right p-0"
       >
         <p className="videoHorizontal__title mb-1">{title}</p>

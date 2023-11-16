@@ -22,16 +22,16 @@ export const login = () => async (dispatch) => {
     const provider = new GoogleAuthProvider();
     provider.addScope("https://www.googleapis.com/auth/youtube.force-ssl");
     const response = await signInWithPopup(auth, provider);
-    console.log(response);
+
     const accessToken = response._tokenResponse.oauthAccessToken;
-    console.log(accessToken);
+
     const profile = {
       name: response.user.displayName,
       photoURL: response.user.photoURL,
     };
 
-    sessionStorage.setItem("ytc-access-token", accessToken);
-    sessionStorage.setItem("ytc-user", JSON.stringify(profile));
+    localStorage.setItem("ytc-access-token", accessToken);
+    localStorage.setItem("ytc-user", JSON.stringify(profile));
     console.log(accessToken);
     dispatch({
       type: LOGIN_SUCCESS,
@@ -66,8 +66,8 @@ export const login = () => async (dispatch) => {
 //       photoURL: res.additionalUserInfo.profile.picture,
 //     };
 
-//     sessionStorage.setItem("ytc-access-token", accessToken);
-//     sessionStorage.setItem("ytc-user", JSON.stringify(profile));
+//     localStorage.setItem("ytc-access-token", accessToken);
+//     localStorage.setItem("ytc-user", JSON.stringify(profile));
 
 //     dispatch({
 //       type: LOGIN_SUCCESS,
@@ -78,7 +78,6 @@ export const login = () => async (dispatch) => {
 //       payload: profile,
 //     });
 //   } catch (error) {
-//     console.log(error.message);
 //     dispatch({
 //       type: LOGIN_FAIL,
 //       payload: error.message,
@@ -91,6 +90,6 @@ export const logout = () => async (dispatch) => {
   dispatch({
     type: LOG_OUT,
   });
-  sessionStorage.removeItem("ytc-access-token");
-  sessionStorage.removeItem("ytc-user");
+  localStorage.removeItem("ytc-access-token");
+  localStorage.removeItem("ytc-user");
 };

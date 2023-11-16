@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./_sidebar.scss";
 
 import {
@@ -15,6 +15,7 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
 const Sidebar = ({ toggleSidebar, toggleSidebarHandler }) => {
+  const [activeNav, setActiveNav] = useState("/");
   const dispatch = useDispatch();
   //
   const logoutHandler = () => {
@@ -28,36 +29,45 @@ const Sidebar = ({ toggleSidebar, toggleSidebarHandler }) => {
     >
       <ul>
         <Link to="/">
-          <li>
+          <li
+            className={activeNav === "/" && "active"}
+            onClick={() => setActiveNav("/")}
+          >
             <MdHome size={23} />
             <span>Home</span>
           </li>
         </Link>
         <Link to="/feed/subscriptions">
-          <li>
+          <li
+            className={activeNav === "/feed/subscriptions" && "active"}
+            onClick={() => setActiveNav("/feed/subscriptions")}
+          >
             <MdSubscriptions size={23} />
             <span>Subscriptions</span>
           </li>
         </Link>
         <Link to="/feed/likedVideos">
-          <li>
+          <li
+            className={activeNav === "/feed/likedVideos" && "active"}
+            onClick={() => setActiveNav("/feed/likedVideos")}
+          >
             <MdThumbUp size={23} />
             <span>Liked Videos</span>
           </li>
         </Link>
         <Link to="/">
-          <li>
+          <li onClick={() => setActiveNav("/")}>
             <MdHistory size={23} />
             <span>History</span>
           </li>
         </Link>
         <Link to="/">
-          <li>
+          <li onClick={() => setActiveNav("/")}>
             <MdLibraryBooks size={23} />
             <span>Library</span>
           </li>
         </Link>
-        <li>
+        <li onClick={() => setActiveNav("/")}>
           <MdSentimentDissatisfied size={23} />
           <span>I don't Know</span>
         </li>

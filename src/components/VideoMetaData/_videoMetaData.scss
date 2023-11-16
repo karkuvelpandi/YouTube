@@ -15,16 +15,18 @@
       margin-right: 12px;
     }
     button {
-      background-color: red;
-      color: #fff;
-      border-radius: 0;
-      text-transform: uppercase;
+      background-color: #fff;
+      color: #000;
+      border-radius: 20px;
+      padding: 8px 12px;
+      // text-transform: uppercase;
       letter-spacing: 0.5px;
       &.btn-gray {
         background-color: gray;
       }
       &:hover {
-        color: #fff;
+        background: #d0d0d0;
+        color: #1a1a1a;
       }
       &:focus {
         border: none;

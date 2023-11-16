@@ -19,7 +19,7 @@ const LikedVideosScreen = () => {
     <Container>
       {!loading ? (
         likedVideos?.map((video, index) => (
-          <VideoHorizontal key={index} video={video} />
+          <VideoHorizontal key={index} video={video} LikedVideosScreen />
         ))
       ) : (
         <SkeletonTheme baseColor="#343a40" highlightColor="#3c4147">
