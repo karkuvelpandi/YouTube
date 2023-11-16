@@ -6,9 +6,11 @@
   &__left {
     position: relative;
     text-align: center;
+    padding-left: 0 !important;
   }
   &__thumbnail {
     width: 100%;
+    border-radius: 10px;
     &-channel {
       width: 50%;
       border-radius: 50%;

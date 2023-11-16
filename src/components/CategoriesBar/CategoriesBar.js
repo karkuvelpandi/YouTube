@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./_categoriesBar.scss";
 import { useDispatch } from "react-redux";
-import { HOME_VIDEOS_REQUEST } from "../../redux/actionType";
+// import { HOME_VIDEOS_REQUEST } from "../../redux/actionType";
 import {
   getPopularVideos,
   getVideosByCategory,

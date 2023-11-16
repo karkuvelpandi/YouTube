@@ -6,6 +6,9 @@ import {
   HOME_VIDEOS_FAIL,
   HOME_VIDEOS_REQUEST,
   HOME_VIDEOS_SUCCESS,
+  LIKED_VIDEOS_FAIL,
+  LIKED_VIDEOS_REQUEST,
+  LIKED_VIDEOS_SUCCESS,
   RELATED_VIDEO_FAIL,
   RELATED_VIDEO_REQUEST,
   RELATED_VIDEO_SUCCESS,
@@ -150,14 +153,13 @@ export const getVideosBySearch = (keyword) => async (dispatch, getState) => {
     dispatch({
       type: SEARCHED_VIDEO_REQUEST,
     });
-    const { data } = await request.get("/search", {
+    const { data } = await request("/search", {
       params: {
         part: "snippet",
         maxResults: 20,
-        // TODO:Paginate
-        // nextPageToken: getState().searchedVideo.nextPageToken,
         q: keyword,
         type: "video,channel",
+        pageToken: getState().searchedVideo.nextPageToken,
       },
     });
 
@@ -242,6 +244,36 @@ export const getVideosByChannel = (id) => async (dispatch) => {
     console.log(error);
     dispatch({
       type: CHANNEL_VIDEOS_FAIL,
+      payload: error.response?.data,
+    });
+  }
+};
+
+export const getUserLikedVideos = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: LIKED_VIDEOS_REQUEST,
+    });
+    const {
+      data: { items },
+    } = await request("/videos", {
+      params: {
+        part: "snippet,contentDetails,statistics",
+        myRating: "like",
+      },
+      headers: {
+        Authorization: `Bearer ${getState().auth.accessToken}`,
+      },
+    });
+
+    dispatch({
+      type: LIKED_VIDEOS_SUCCESS,
+      payload: items,
+    });
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: LIKED_VIDEOS_FAIL,
       payload: error.response?.data,
     });
   }

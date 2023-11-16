@@ -5,6 +5,9 @@ import {
   HOME_VIDEOS_FAIL,
   HOME_VIDEOS_REQUEST,
   HOME_VIDEOS_SUCCESS,
+  LIKED_VIDEOS_FAIL,
+  LIKED_VIDEOS_REQUEST,
+  LIKED_VIDEOS_SUCCESS,
   RELATED_VIDEO_FAIL,
   RELATED_VIDEO_REQUEST,
   RELATED_VIDEO_SUCCESS,
@@ -228,6 +231,46 @@ export const channelVideosReducer = (
         loading: false,
       };
     case CHANNEL_VIDEOS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const likedVideosReducer = (
+  state = {
+    loading: true,
+    likedVideos: [],
+    // nextPageToken: null,
+    // can //TODO:Complete the pagination
+    // context: null,
+  },
+  action
+) => {
+  const { payload, type } = action;
+  switch (type) {
+    case LIKED_VIDEOS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case LIKED_VIDEOS_SUCCESS:
+      return {
+        ...state,
+        likedVideos: payload,
+        // can //TODO:Pagination
+        // searchResults:
+        //   state.searchQuery === payload.searchQuery
+        //     ? [...state.searchResults, ...payload.searchResults]
+        //     : payload.searchResults,
+        // nextPageToken: payload.nextPageToken,
+        loading: false,
+      };
+    case LIKED_VIDEOS_FAIL:
       return {
         ...state,
         loading: false,

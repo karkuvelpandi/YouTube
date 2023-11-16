@@ -12,6 +12,8 @@
   &__top {
     position: relative;
     margin-bottom: 0.5rem;
+    border-radius: 10px;
+    overflow: hidden;
     .lazy-load-image-background {
       width: 100%;
     }
