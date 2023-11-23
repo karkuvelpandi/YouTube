@@ -9,10 +9,6 @@ import {
   LOGIN_SUCCESS,
 } from "../actionType";
 
-// Initialize Firebase
-// const app = initializeApp(firebaseConfig);
-// const auth = getAuth(app);
-
 export const login = () => async (dispatch) => {
   try {
     dispatch({
