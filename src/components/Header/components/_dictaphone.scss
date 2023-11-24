@@ -1,0 +1,79 @@
+@import "../../../base";
+
+.micPopup {
+  background-color: $border-color-secondary;
+  padding: 23px;
+  min-width: 500px;
+  height: 50vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 1rem;
+  &__mic {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &__icon {
+      color: #fff;
+      padding: 8px;
+      height: auto;
+      width: auto;
+      cursor: pointer;
+      border-radius: 50%;
+      background-color: #555;
+      position: relative;
+      z-index: 2;
+    }
+
+    &__icon.active {
+      background-color: red;
+    }
+  }
+
+  &__close {
+    font-size: larger;
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: #444;
+    padding: 2px 10px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+}
+.pulse-ring {
+  content: "";
+  width: 70px;
+  height: 70px;
+  background: transparent;
+  border: 12px solid #777;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 0;
+  top: -2px;
+  left: calc(50%-33px);
+  animation: pulsate infinite 1.5s;
+}
+@keyframes pulsate {
+  0% {
+    -webkit-transform: scale(1, 1);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(1.4, 1.4);
+    opacity: 0;
+  }
+}
+@-webkit-keyframes pulsate {
+  0% {
+    -webkit-transform: scale(1, 1);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(1.4, 1.4);
+    opacity: 0;
+  }
+}

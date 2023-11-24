@@ -28,7 +28,6 @@ export const login = () => async (dispatch) => {
 
     localStorage.setItem("ytc-access-token", accessToken);
     localStorage.setItem("ytc-user", JSON.stringify(profile));
-    console.log(accessToken);
     dispatch({
       type: LOGIN_SUCCESS,
       payload: accessToken,

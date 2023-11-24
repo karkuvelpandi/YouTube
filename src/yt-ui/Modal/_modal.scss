@@ -1,0 +1,51 @@
+@import "../../base";
+
+.modalPopup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+  &__close {
+    display: inline;
+    position: fixed;
+    z-index: 20;
+    color: white;
+    right: 20px;
+    top: 20px;
+    font-size: 3rem;
+    font-weight: 800;
+    cursor: pointer;
+  }
+  &__allCentered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    &__backdrop {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      z-index: 0;
+    }
+    &__backdrop__shade {
+      background-color: black;
+      opacity: 0.75;
+    }
+  }
+  &__children {
+    position: relative;
+    z-index: 10;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .modalPopup {
+    &__close {
+      right: 40px;
+    }
+  }
+}
