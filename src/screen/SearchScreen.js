@@ -10,7 +10,7 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 const SearchScreen = () => {
   const dispatch = useDispatch();
   const { query } = useParams();
-  const { searchResults, nextPageToken, searchQuery, loading } = useSelector(
+  const { searchResults, searchQuery, loading } = useSelector(
     (state) => state.searchedVideo
   );
 

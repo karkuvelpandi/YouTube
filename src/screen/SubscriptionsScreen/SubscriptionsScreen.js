@@ -7,7 +7,7 @@ import VideoHorizontal from "../../components/VideoHorizontal/VideoHorizontal";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 export const SubscriptionsScreen = () => {
   const dispatch = useDispatch();
-  const { channels, loading, nextPageToken } = useSelector(
+  const { channels, loading } = useSelector(
     (state) => state.subscribedChannels
   );
   useEffect(() => {

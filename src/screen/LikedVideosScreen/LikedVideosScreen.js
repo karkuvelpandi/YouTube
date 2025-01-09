@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserLikedVideos } from "../../redux/actions/videos.action";
 import { Container } from "react-bootstrap";
-import InfiniteScroll from "react-infinite-scroll-component";
 import VideoHorizontal from "../../components/VideoHorizontal/VideoHorizontal";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
